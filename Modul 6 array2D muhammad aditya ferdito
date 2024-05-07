@@ -1,0 +1,40 @@
+nilai_ujian = [
+    ["Mahasiswa", "Matdis", "Kalkulus2", "ADP"],
+    ["dito", 85, 80, 90],
+    ["tata", 82, 79, 87],
+    ["arsen", 70, 73, 89],
+]
+
+for data in nilai_ujian:
+    print("|".join(map(str, data)))
+
+print()
+
+for data in nilai_ujian[1:]:
+    nama = data[0]
+    total_nilai = sum(data[1:])
+    rata_rata = total_nilai / (len(data) - 1)
+    print(f"Rata-rata nilai ujian {nama}: {rata_rata:.2f}")
+
+print()
+
+for i in range(1, len(nilai_ujian[0])):
+    max_score = nilai_ujian[1][i]
+    min_score = nilai_ujian[1][i]
+    mahasiswa_max = [nilai_ujian[1][0]]
+    mahasiswa_min = [nilai_ujian[1][0]]
+    for data in nilai_ujian[2:]:
+        score = data[i]
+        if score > max_score:
+            max_score = score
+            mahasiswa_max = [data[0]]
+        elif score == max_score:
+            mahasiswa_max.append(data[0])
+        if score < min_score:
+            min_score = score
+            mahasiswa_min = [data[0]]
+        elif score == min_score:
+            mahasiswa_min.append(data[0])
+    subjek = nilai_ujian[0][i]
+    print(f"Nilai tertinggi {subjek}: {max_score} oleh {', '.join(mahasiswa_max)}")
+    print(f"Nilai terendah {subjek}: {min_score} oleh {', '.join(mahasiswa_min)}")
