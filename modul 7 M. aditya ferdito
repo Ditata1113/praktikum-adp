@@ -1,0 +1,43 @@
+def konversi_suhu(suhu, satuan):
+    if satuan == 'C':
+        return suhu * 9/5 + 32, suhu * 4/5, suhu + 273.15
+    elif satuan == 'F':
+        return (suhu - 32) * 5/9, (suhu - 32) * 4/9, (suhu - 32) * 5/9 + 273.15
+    elif satuan == 'R':
+        return suhu * 5/4, suhu * 9/4 + 32, suhu * 5/4 + 273.15
+    elif satuan == 'K':
+        return suhu - 273.15, (suhu - 273.15) * 9/5 + 32, (suhu - 273.15) * 4/5
+    else:
+        return "Satuan suhu tidak valid"
+
+def tampilkan_suhu(suhu, satuan):
+    print(f"Suhu {suhu} derajat {satuan} dapat dikonversi menjadi:")
+    print("Satuan suhu ||")
+    print("-------------||")
+    unit_labels = {'C': ['Fahrenheit', 'Reaumur', 'Kelvin'],
+                   'F': ['Celcius', 'Reaumur', 'Kelvin'],
+                   'R': ['Celcius', 'Fahrenheit', 'Kelvin'],
+                   'K': ['Celcius', 'Fahrenheit', 'Reaumur']}
+    results = konversi_suhu(suhu, satuan)
+    for unit, result in zip(unit_labels[satuan], results):
+        print(f"{unit.ljust(13)}||  {result:.2f}")
+
+def main():
+    suhu_input = input("Masukkan suhu dalam derajat: ")
+    if not suhu_input.replace('.', '', 1).isdigit():
+        print("Masukkan harus berupa angka")
+        return
+    suhu = float(suhu_input)
+    satuan = input("Masukkan satuan suhu (C/F/R/K): ").upper()
+    if satuan not in ['C', 'F', 'R', 'K']:
+        print("Satuan suhu tidak valid")
+        return
+    if ((suhu < -273.15 and satuan == 'C') or 
+        (suhu < -459.67 and satuan == 'F') or 
+        (suhu < -218.52 and satuan == 'R') or 
+        (suhu < 0 and satuan == 'K')):
+        print("Suhu yang Anda inputkan tidak sesuai")
+        return
+    tampilkan_suhu(suhu, satuan)
+
+main()
