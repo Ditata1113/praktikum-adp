@@ -1,0 +1,84 @@
+NAMA_FILE = "data_buku.txt"
+
+def pastikan_file_ada():
+    file = open(NAMA_FILE, "a") 
+    file.close()
+
+def muat_data():
+    data = {}
+    with open(NAMA_FILE, "r") as file:
+        baris = file.readlines()
+        for line in baris:
+            bagian = line.strip().split('|')
+            if len(bagian) == 4:
+                judul, penulis, penerbit, tahun_terbit = bagian
+                data[judul] = {
+                    "penulis": penulis,
+                    "penerbit": penerbit,
+                    "tahun_terbit": tahun_terbit
+                }
+    return data
+
+def simpan_data(data):
+    with open(NAMA_FILE, "w") as file:
+        for judul, info in data.items():
+            file.write(f"{judul}|{info['penulis']}|{info['penerbit']}|{info['tahun_terbit']}\n")
+
+def tampilkan_menu():
+    print("Menu:(1/2/3/4)")
+    print("1. Tambah Data Buku")
+    print("2. Hapus Data Buku")
+    print("3. Tampilkan Data Buku")
+    print("4. Keluar")
+    return input("Pilih menu (1-4): ")
+
+def tambah_buku(data):
+    judul = input("Masukkan judul buku: ")
+    penulis = input("Masukkan nama penulis: ")
+    penerbit = input("Masukkan nama penerbit: ")
+    tahun_terbit = input("Masukkan tahun terbit: ")
+    
+    data[judul] = {
+        "penulis": penulis,
+        "penerbit": penerbit,
+        "tahun_terbit": tahun_terbit
+    }
+    simpan_data(data)
+    print(f"Buku '{judul}' berhasil ditambahkan!")
+
+def hapus_buku(data):
+    judul = input("Masukkan judul buku yang ingin dihapus: ")
+    if judul in data:
+        del data[judul]
+        simpan_data(data)
+        print(f"Buku '{judul}' berhasil dihapus!")
+    else:
+        print(f"Buku '{judul}' tidak ditemukan!")
+
+def tampilkan_buku(data):
+    if data:
+        print("\nData Buku:")
+        for judul, info in data.items():
+            print(f"\nJudul: {judul}")
+            print(f"Penulis: {info['penulis']}")
+            print(f"Penerbit: {info['penerbit']}")
+            print(f"Tahun Terbit: {info['tahun_terbit']}")
+    else:
+        print("Tidak ada data buku yang tersimpan.")
+
+pastikan_file_ada()
+data = muat_data()
+
+while True:
+    pilihan = tampilkan_menu()
+    if pilihan == "1":
+        tambah_buku(data)
+    elif pilihan == "2":
+        hapus_buku(data)
+    elif pilihan == "3":
+        tampilkan_buku(data)
+    elif pilihan == "4":
+        print("Keluar dari program.")
+        break
+    else:
+        print("Pilihan tidak valid. Silakan coba lagi.")
