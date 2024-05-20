@@ -1,12 +1,12 @@
-NAMA_FILE = "data_buku.txt"
+BOOK_FILE = "data_buku.txt"
 
 def pastikan_file_ada():
-    file = open(NAMA_FILE, "a") 
+    file = open(BOOK_FILE, "a") 
     file.close()
 
 def muat_data():
     data = {}
-    with open(NAMA_FILE, "r") as file:
+    with open(BOOK_FILE, "r") as file:
         baris = file.readlines()
         for line in baris:
             bagian = line.strip().split('|')
@@ -20,7 +20,7 @@ def muat_data():
     return data
 
 def simpan_data(data):
-    with open(NAMA_FILE, "w") as file:
+    with open(BOOK_FILE, "w") as file:
         for judul, info in data.items():
             file.write(f"{judul}|{info['penulis']}|{info['penerbit']}|{info['tahun_terbit']}\n")
 
