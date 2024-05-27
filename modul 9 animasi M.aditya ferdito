@@ -1,0 +1,23 @@
+import time
+import os
+from termcolor import colored,cprint
+
+def bersihkan_layar():
+    os.system('cls')
+bersihkan_layar()
+
+for i in range(10):
+	cprint(" "*20,'white',"on_blue",end="")
+
+def cetak_logo_visa():
+    v = colored('V', 'blue')
+    i = colored('I', 'blue')
+    s = colored('S', 'blue')
+    a = colored('A', 'blue')
+    print(f"{v}{i}{s}{a}")
+
+print(" " * 30, end="")
+cetak_logo_visa()
+for i in range(10):
+	cprint(" "*20,'white',"on_yellow",end="")
+print("\n"*2)
